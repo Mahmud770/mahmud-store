@@ -1,4 +1,4 @@
-'use client';
+use client';
 import { useState } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { usersAPI } from '@/lib/api';
@@ -117,21 +117,34 @@ export default function SettingsPage() {
           <button onClick={handleRegenApiKey} className="btn-danger text-sm">تجديد المفتاح</button>
           <p className="text-slate-500 text-xs">استخدم هذا المفتاح للوصول إلى API الموقع. نقطة النهاية: <code className="text-blue-400">/api/v2</code></p>
         </div>
-{/* Telegram */}
-<div className="card space-y-4">
-  <h2 className="font-bold text-white flex items-center gap-2">
-    <span className="text-xl">✈️</span>ربط حساب تيليغرام
-  </h2>
-  <div className="space-y-3">
-    <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
-      <p className="text-slate-300 text-sm leading-relaxed mb-2">لربط حسابك واستقبال إشعارات الطلبات:</p>
-    </div>
-    <a href={`https://t.me/mahmudstore_bot?start=link_${user?._id}`} target="_blank" rel="noreferrer"
-      className="btn-primary w-full justify-center" style={{textDecoration:'none'}}>
-      ✈️ ربط مع تيليغرام الآن
-    </a>
-  </div>
-</div>
+
+        {/* Telegram */}
+        <div className="card space-y-4">
+          <h2 className="font-bold text-white flex items-center gap-2"><span className="text-xl">✈️</span>ربط حساب تيليغرام</h2>
+          {user?.telegramId ? (
+            <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
+              <p className="text-green-400 font-semibold text-sm">✅ حسابك مرتبط بتيليغرام</p>
+              <p className="text-slate-400 text-xs mt-1">ID: {user.telegramId}</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+                <p className="text-slate-300 text-sm leading-relaxed mb-2">لربط حسابك واستقبال إشعارات الطلبات على تيليغرام:</p>
+                <ol className="text-slate-400 text-sm space-y-1 list-decimal list-inside">
+                  <li>اضغط الزر أدناه لفتح البوت</li>
+                  <li>اضغط Start أو أرسل أي رسالة</li>
+                  <li>سيتم ربط حسابك تلقائياً</li>
+                </ol>
+              </div>
+              <a href={`https://t.me/mahmudstore_bot?start=link_${user?._id}`} target="_blank" rel="noreferrer"
+                className="btn-primary w-full justify-center no-underline">
+                ✈️ ربط مع تيليغرام الآن
+              </a>
+            </div>
+          )}
+          <p className="text-slate-500 text-xs">ستصلك إشعارات فورية عند تحديث طلباتك أو إضافة رصيد</p>
+        </div>
+
         {/* Referral */}
         <div className="card space-y-4">
           <h2 className="font-bold text-white flex items-center gap-2"><Share2 className="w-5 h-5 text-green-400" />نظام الإحالة</h2>
