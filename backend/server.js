@@ -46,7 +46,9 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/admin', require('./routes/admin'));
 
 // SMM Panel API (public)
+app.use('/api/numbers', require('./routes/numbers'));
 app.use('/api/v2', require('./routes/smmapi'));
+app.use('/api/virtual-numbers', require('./routes/virtualNumbers'));
 
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString(), name: 'Mahmud-Store API' }));
