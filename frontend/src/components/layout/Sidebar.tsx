@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/lib/store';
-import {
+import { phone } from '@/lib/store';
   LayoutDashboard, Package, PlusCircle, ClipboardList, CreditCard,
   HeadphonesIcon, Code2, Settings, Users, BarChart3, Ticket, Tag,
   LogOut, ChevronLeft, Zap, Bell, History,
@@ -15,6 +15,7 @@ const userLinks = [
   { href: '/orders', label: 'سجل الطلبات', icon: ClipboardList },
   { href: '/add-funds', label: 'إضافة رصيد', icon: CreditCard },
   { href: '/support', label: 'الدعم الفني', icon: HeadphonesIcon },
+  { href: '/numbers', label: 'أرقام افتراضية', icon: Phone },
   { href: '/api-docs', label: 'API', icon: Code2 },
   { href: '/settings', label: 'الإعدادات', icon: Settings },
 ];
