@@ -5,17 +5,9 @@ import { useAuthStore } from '@/lib/store';
 import toast from 'react-hot-toast';
 import { Phone, Search, RefreshCw, Copy, Check, Clock } from 'lucide-react';
 
-const HERO_API = 'https://hero-sms.com/stubs/handler_api.php';
 const BACKEND_API = process.env.NEXT_PUBLIC_API_URL;
 const USD_TO_TRY = 47;
 const MARKUP = 2;
-
-interface Service {
-  id: string;
-  name: string;
-  price: number;
-  priceTRY: number;
-}
 
 interface Country {
   id: string;
@@ -62,6 +54,8 @@ const POPULAR_SERVICES = [
   { id: 'ya', nameAr: 'ياندكس', icon: '🅨' },
 ];
 
+const getToken = () => localStorage.getItem('accessToken');
+
 export default function VirtualNumbersPage() {
   const { user, updateUser } = useAuthStore();
   const [selectedCountry, setSelectedCountry] = useState('43');
@@ -79,10 +73,15 @@ export default function VirtualNumbersPage() {
 
   const fetchPrice = async () => {
     try {
-      const res = await fetch(`${BACKEND_API}/numbers/price?service=${selectedService}&country=${selectedCountry}`);
+      const res = await fetch(`${BACKEND_API}/numbers/price?service=${selectedService}&country=${selectedCountry}`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
       const data = await res.json();
       if (data.price) setPrice(data.price * USD_TO_TRY * MARKUP);
-    } catch {}
+      else setPrice(null);
+    } catch {
+      setPrice(null);
+    }
   };
 
   useEffect(() => { fetchPrice(); }, [selectedService, selectedCountry]);
@@ -95,7 +94,10 @@ export default function VirtualNumbersPage() {
     try {
       const res = await fetch(`${BACKEND_API}/numbers/buy`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${document.cookie.match(/accessToken=([^;]+)/)?.[1]}` },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
         body: JSON.stringify({ service: selectedService, country: selectedCountry, price }),
       });
       const data = await res.json();
@@ -117,7 +119,7 @@ export default function VirtualNumbersPage() {
     setCheckingId(numberId);
     try {
       const res = await fetch(`${BACKEND_API}/numbers/check/${numberId}`, {
-        headers: { Authorization: `Bearer ${document.cookie.match(/accessToken=([^;]+)/)?.[1]}` },
+        headers: { Authorization: `Bearer ${getToken()}` },
       });
       const data = await res.json();
       if (data.sms) {
@@ -147,9 +149,7 @@ export default function VirtualNumbersPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Order Panel */}
           <div className="lg:col-span-1 space-y-4">
-            {/* Service selection */}
             <div className="card space-y-3">
               <h2 className="font-bold text-white">اختر التطبيق</h2>
               <div className="grid grid-cols-2 gap-2">
@@ -162,7 +162,6 @@ export default function VirtualNumbersPage() {
               </div>
             </div>
 
-            {/* Country selection */}
             <div className="card space-y-3">
               <h2 className="font-bold text-white">اختر الدولة</h2>
               <div className="relative">
@@ -180,7 +179,6 @@ export default function VirtualNumbersPage() {
               </div>
             </div>
 
-            {/* Price & Buy */}
             <div className="card space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-slate-400">السعر</span>
@@ -203,7 +201,6 @@ export default function VirtualNumbersPage() {
             </div>
           </div>
 
-          {/* Active Numbers */}
           <div className="lg:col-span-2">
             <div className="card space-y-4">
               <h2 className="font-bold text-white flex items-center gap-2">
@@ -215,7 +212,7 @@ export default function VirtualNumbersPage() {
                 <div className="text-center py-16">
                   <Phone className="w-12 h-12 text-slate-700 mx-auto mb-3" />
                   <p className="text-slate-500">لا توجد أرقام نشطة</p>
-                  <p className="text-slate-600 text-sm mt-1">اشترِ رقماً من القائمة على اليمين</p>
+                  <p className="text-slate-600 text-sm mt-1">اشترِ رقماً من القائمة على اليسار</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -261,7 +258,6 @@ export default function VirtualNumbersPage() {
           </div>
         </div>
 
-        {/* Info */}
         <div className="card bg-blue-500/5 border-blue-800/30">
           <h3 className="text-white font-semibold mb-3">📋 تعليمات الاستخدام</h3>
           <div className="grid md:grid-cols-3 gap-4 text-sm text-slate-400">
