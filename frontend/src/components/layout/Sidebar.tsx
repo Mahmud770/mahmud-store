@@ -2,10 +2,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/lib/store';
-import { phone } from '@/lib/store';
+import {
   LayoutDashboard, Package, PlusCircle, ClipboardList, CreditCard,
   HeadphonesIcon, Code2, Settings, Users, BarChart3, Ticket, Tag,
-  LogOut, ChevronLeft, Zap, Bell, History,
+  LogOut, ChevronLeft, Zap, Bell, History, Phone,
 } from 'lucide-react';
 
 const userLinks = [
