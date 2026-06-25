@@ -54,7 +54,11 @@ const POPULAR_SERVICES = [
   { id: 'ya', nameAr: 'ياندكس', icon: '🅨' },
 ];
 
-const getToken = () => localStorage.getItem('accessToken');
+const getToken = () => {
+  const cookies = document.cookie.split(';');
+  const token = cookies.find(c => c.trim().startsWith('accessToken='));
+  return token ? token.split('=')[1] : null;
+};
 
 export default function VirtualNumbersPage() {
   const { user, updateUser } = useAuthStore();
