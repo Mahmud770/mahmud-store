@@ -3,9 +3,9 @@ import './globals.css';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
-  title: 'Mahmud-Store | أفضل لوحة SMM عربية',
-  description: 'منصة Mahmud-Store لخدمات التواصل الاجتماعي - متابعين، لايكات، مشاهدات بأعلى جودة وأقل الأسعار',
-  keywords: 'SMM Panel, متابعين, لايكات, مشاهدات, إنستغرام, تيك توك, يوتيوب',
+  title: 'King SMM 👑 | أفضل لوحة SMM عربية',
+  description: 'منصة King SMM الملكية لخدمات التواصل الاجتماعي - متابعين، لايكات، مشاهدات بأعلى جودة وأقل الأسعار',
+  keywords: 'King SMM, SMM Panel, متابعين, لايكات, مشاهدات',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,9 +22,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           position="top-center"
           toastOptions={{
             duration: 4000,
-            style: { background: '#0f172a', color: '#f1f5f9', border: '1px solid #1e293b', fontFamily: 'Cairo, sans-serif', direction: 'rtl' },
-            success: { iconTheme: { primary: '#22c55e', secondary: '#0f172a' } },
-            error: { iconTheme: { primary: '#ef4444', secondary: '#0f172a' } },
+            style: {
+              background: '#1a1500',
+              color: '#f5f0e0',
+              border: '1px solid #2a2200',
+              fontFamily: 'Cairo, sans-serif',
+              direction: 'rtl',
+            },
+            success: { iconTheme: { primary: '#d4a017', secondary: '#1a1500' } },
+            error: { iconTheme: { primary: '#ef4444', secondary: '#1a1500' } },
           }}
         />
       </body>
