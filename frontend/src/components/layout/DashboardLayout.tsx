@@ -18,10 +18,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center"
+        style={{ background: '#080600' }}>
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-400 text-sm">جاري التحميل...</p>
+          <div className="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4"
+            style={{ borderColor: '#d4a017', borderTopColor: 'transparent' }} />
+          <p className="text-sm" style={{ color: '#a89060' }}>جاري التحميل...</p>
         </div>
       </div>
     );
@@ -30,10 +32,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (!isAuthenticated) return null;
 
   return (
-    <div className="min-h-screen bg-slate-950 flex">
+    <div className="min-h-screen flex" style={{ background: '#080600' }}>
       {/* Mobile overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/60 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+        <div className="fixed inset-0 bg-black/70 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)} />
       )}
 
       {/* Sidebar - desktop */}
@@ -52,8 +55,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <main className="flex-1 p-4 lg:p-6 overflow-x-hidden animate-fade-in">
           {children}
         </main>
-        <footer className="text-center text-slate-600 text-xs py-4 border-t border-slate-900">
-          © 2024 Mahmud-Store — جميع الحقوق محفوظة
+        <footer className="text-center text-xs py-4"
+          style={{ borderTop: '1px solid #2a2200', color: '#a89060' }}>
+          ♛ 2025 KingSMM — جميع الحقوق محفوظة
         </footer>
       </div>
     </div>
